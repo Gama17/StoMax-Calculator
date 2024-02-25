@@ -1,5 +1,25 @@
-import numpy
+#main.py
+import calculator
 import customtkinter as tk
+
+def calculate(dividendYeld):
+    averageDiv = calculator.averageDiv(numPayments, *payments)
+    dividendYeld = float(dividendYeld)
+    calculator.maxPrice(dividendYeld,averageDiv)
+
+def insertValues():
+    global numPayments
+    numPayments = int(entrada1.get())
+    for i in range(numPayments):
+        entrada2 = tk.CTkEntry(master=frame, placeholder_text="Valor do dividendo:")      #Cria uma pequena janela para inserir o valor do Dividendo por Cota
+        entrada2.pack(pady=12, padx=10)     #Define a posição da caixa de inserção do valor do Dividendo por Cota
+        entries.append(entrada2)
+    for entry in entries:
+        payments.append(float(entry.get()))
+    
+def onCalculateClick():
+    dividendYeld = entrada3.get()
+    calculate(dividendYeld)
 
 tk.set_appearance_mode("dark")
 tk.set_default_color_theme("green")
@@ -13,17 +33,19 @@ label.pack(padx=20, pady=20)                                                    
 frame = tk.CTkFrame(master=window)
 frame.pack(pady=20, padx=60, fill="both", expand=True)
 
-def calcularValorMax():
-    print("Teste")
+entries = []
+payments = []
 
 entrada1 = tk.CTkEntry(master=frame, placeholder_text="Número de Pagamentos:")    #Cria uma pequena janela para inserir o número de pagamentos
 entrada1.pack(pady=12, padx=10)                                                   #Define a posição da caixa de inserção do número de pagamentos
-entrada2 = tk.CTkEntry(master=frame, placeholder_text="Valor do dividendo:")      #Cria uma pequena janela para inserir o valor do Dividendo por Cota
-entrada2.pack(pady=12, padx=10)                                                   #Define a posição da caixa de inserção do valor do Dividendo por Cota
-entrada3 = tk.CTkEntry(master=frame, placeholder_text="Dividend Yeld:")           #Cria uma pequena janela para inserir a taxa pretendida(Dividend Yeld)
-entrada3.pack(pady=12, padx=10)                                                   #Define a posição da caixa de inserção da taxa pretendida
 
-butao1 = tk.CTkButton(master=frame, text="Calcular", command=calcularValorMax)
-butao1.pack(pady=12, padx=10)
+botao1 = tk.CTkButton(master=frame, text="Próximo", command=insertValues)
+botao1.pack(pady=12, padx=10)
+
+entrada3 = tk.CTkEntry(master=frame, placeholder_text="Dividend Yeld:")           #Cria uma pequena janela para inserir a taxa pretendida(Dividend Yeld)
+entrada3.pack(pady=12, padx=10)   #Define a posição da caixa de inserção da taxa pretendida
+
+botao2 = tk.CTkButton(master=frame, text="Calcular", command=onCalculateClick)
+botao2.pack(pady=12, padx=10)
 
 window.mainloop()
